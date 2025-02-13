@@ -4,57 +4,41 @@ import './index.css'
 import App from './App.jsx'
 import {Provider} from 'react-redux'
 import store from './store/store.js'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import Protected from './components/AuthLayout.jsx'
+import Home from './pages/Home.jsx'
+import Login from './pages/Login.jsx'
+import SignUp from './pages/SignUp.jsx'
 
 
 
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />,
-//       },
-//       {
-//         path: "/login",
-//         element: <Protected authentication={false}><Login /></Protected>,
-//       },
-//       {
-//         path: "/signup",
-//         element: <Protected authentication={false}><Signup /></Protected>,
-//       },
-//       {
-//         path: "/all-posts",
-//         element: <Protected authentication={true}><Allposts /></Protected>,
-//       },
-//       {
-//         path: "/add-post",
-//         element: <Protected authentication={true}><AddPost /></Protected>,
-//       },
-//       {
-//         path: "/edit-post/:slug",
-//         element: <Protected authentication={true}><EditPost /></Protected>,
-//       },
-//       {
-//         path: "/post/:slug",
-//         element: <Protected authentication={true}><Post /></Protected>,
-//       },
-//     ],
-//   },
-// ]);
-
-
-
-
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/sign",
+        element: <Protected authentication={false}><SignUp /></Protected>,
+      },
+      {
+        path: "/login",
+        element: <Protected authentication={false}><Login /></Protected>,
+      },
+      {
+        path: "/",
+        element: <Protected authentication={true}> <Home/></Protected>,
+      }
+    ],
+  },
+]);
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+       <RouterProvider router={router}/> 
     </Provider>
   </StrictMode>,
 )

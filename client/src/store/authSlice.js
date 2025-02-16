@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { registerUser,loginUser } from './authActions';
+import { registerUser,loginUser, getUserData, getAuthStatus, getLogoutUser, sendVerificationOtp, verifyemail } from './authActions';
 
 
 const initialState = {
@@ -7,6 +7,8 @@ const initialState = {
   userData: null,
   error: null,
   loading: false,
+  verification:false,
+  otp:false
 };
 
 const authSlice = createSlice({
@@ -18,9 +20,11 @@ const authSlice = createSlice({
       state.userData = null;
     },
   },
+  
+
   extraReducers: (builder) => {
     builder
-      // Handles the pending state of registerUser async thunk
+      // Register user actions
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -28,26 +32,103 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.status = true;
-        state.userData = action.payload; // Assuming response contains user data
+        state.userData = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // Error message from rejectWithValue
+        state.error = action.payload;
       })
-      
-      // Handles the pending state of loginUser async thunk
+
+      // Login user actions
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.status = true;
-        state.userData = action.payload; // Assuming response contains user data and token
+        state.otp = true;
+        state.userData = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // Error message from rejectWithValue
+        state.error = action.payload;
+      })
+
+      // Get user data actions
+      .addCase(getUserData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = true;
+        state.userData = action.payload;
+      })
+      .addCase(getUserData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Get auth status actions
+      .addCase(getAuthStatus.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAuthStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = true;
+        state.userData = action.payload;
+      })
+      .addCase(getAuthStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+
+      //Get auth logout
+      .addCase(getLogoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getLogoutUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = false;
+        state.userData = action.payload;
+      })
+      .addCase(getLogoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      //Get auth Email verification
+      .addCase(sendVerificationOtp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(sendVerificationOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = false;
+        state.userData = action.payload;
+      })
+      .addCase(sendVerificationOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      //Get auth Email verification
+      .addCase(verifyemail.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyemail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = false;
+        state.verification=true
+        state.userData = action.payload;
+      })
+      .addCase(verifyemail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

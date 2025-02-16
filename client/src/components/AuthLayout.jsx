@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { getAuthStatus } from '../store/authActions'
 
 const Protected = ({ children, authentication }) => {
 
     const authStatus = useSelector((state) => state.auth.status)
     const navigate = useNavigate()
     const [loader, setLoader] = useState(true)
+    const dispatch=useDispatch()
+
+    // useEffect(()=>{
+    //     dispatch(getAuthStatus()) 
+    // },[])
 
     useEffect(() => {
         if (authentication && authStatus !== authentication) {

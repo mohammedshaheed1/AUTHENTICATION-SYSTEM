@@ -9,6 +9,7 @@ import Protected from './components/AuthLayout.jsx'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import SignUp from './pages/SignUp.jsx'
+import EmailVerify from './pages/EmailVerify.jsx'
 
 
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: <Protected authentication={true}> <Home/></Protected>,
+      },
+      {
         path: "/sign",
         element: <Protected authentication={false}><SignUp /></Protected>,
       },
@@ -27,8 +32,8 @@ const router = createBrowserRouter([
         element: <Protected authentication={false}><Login /></Protected>,
       },
       {
-        path: "/",
-        element: <Protected authentication={true}> <Home/></Protected>,
+        path: "/VerifyEmail",
+        element: <Protected authentication={true}><EmailVerify /></Protected>,
       }
     ],
   },

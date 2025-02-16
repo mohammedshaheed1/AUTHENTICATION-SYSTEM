@@ -4,7 +4,7 @@ import Input from '../custom/Input'
 import Button from '../custom/Button'
 import {useSelector,useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { registerUser } from '../store/authActions'
+import { getUserData, registerUser } from '../store/authActions'
 import { assets } from '../assets/assets'
 
 
@@ -21,6 +21,7 @@ const SignupComponents = () => {
 
       
         dispatch(registerUser(data));
+        dispatch(getUserData())
 
        
     }

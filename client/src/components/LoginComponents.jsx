@@ -3,7 +3,7 @@ import Button from "../custom/Button"
 import Input from "../custom/Input"
 import { useSelector,useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
-import { loginUser } from "../store/authActions"
+import { getUserData, loginUser } from "../store/authActions"
 import { assets } from "../assets/assets"
 
 
@@ -17,6 +17,7 @@ const LoginComponents = () => {
     const login = async (data) => {
        
         dispatch(loginUser( data ));
+        dispatch(getUserData())
        
     }
 

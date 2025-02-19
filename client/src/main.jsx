@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import SignUp from './pages/SignUp.jsx'
 import EmailVerify from './pages/EmailVerify.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/VerifyEmail",
         element: <Protected authentication={true}><EmailVerify /></Protected>,
+      },
+      {
+        path: "/reset-password",
+        element: <Protected authentication={false}><ResetPassword /></Protected>,
       }
     ],
   },

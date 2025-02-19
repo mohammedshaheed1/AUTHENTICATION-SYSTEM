@@ -10,9 +10,9 @@ const Protected = ({ children, authentication }) => {
     const [loader, setLoader] = useState(true)
     const dispatch=useDispatch()
 
-    // useEffect(()=>{
-    //     dispatch(getAuthStatus()) 
-    // },[])
+    useEffect(()=>{
+        dispatch(getAuthStatus()) 
+    },[])
 
     useEffect(() => {
         if (authentication && authStatus !== authentication) {

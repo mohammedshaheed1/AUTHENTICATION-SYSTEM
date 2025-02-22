@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
+import { useDispatch, useSelector } from 'react-redux'
+import { sendResetOtp } from '../store/authActions'
+import { toast } from 'react-toastify'
 
 const ResetPassword = () => {
   
@@ -11,6 +14,12 @@ const ResetPassword = () => {
      const [isEmailsend,setIsEmailSend]=useState('')
      const [otp,setOtp]=useState(0)
      const [isOtpSubmited,setIsOtpSubmited]=useState(false)
+
+
+     const dispatch = useDispatch()
+     const authOtp=useSelector((state)=>state.auth.otp)
+
+     console.log("reset password",authOtp)
 
      const handleInput = (e, index) => {
         if (e.target.value.length > 0 && index < inputRef.current.length - 1) {
@@ -37,10 +46,22 @@ const ResetPassword = () => {
       };
 
 
+      const onSubmitEmail = async(e)=>{
+           e.preventDefault()
+           dispatch(sendResetOtp())
+
+           if(authOtp){
+              toast.success("Otp sented to your mail")
+              setIsEmailSend(true)
+           }
+
+      }
+
+
   return (
     <div  className="flex items-center justify-center min-h-screen">
         {!isEmailsend&&
-            <form action="" className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
+            <form onSubmit={onSubmitEmail} action="" className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
             <h1 className="text-white text-2xl font-semibold text-center mb-4">Reset Password</h1>
             <p className="text-center mb-6 text-indigo-300">Enter your registered email address</p>
             <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>

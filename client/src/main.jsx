@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/VerifyEmail",
-        element: <Protected authentication={true}><EmailVerify /></Protected>,
+        element: <Protected authentication={false}><EmailVerify /></Protected>,
       },
       {
         path: "/reset-password",

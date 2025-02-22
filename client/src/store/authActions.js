@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../axios';
 import { toast } from 'react-toastify';
 
+
+
 // Define an async thunk for user registration
 
 
@@ -45,9 +47,9 @@ export const loginUser = createAsyncThunk(
       const response = await axiosInstance.post('/api/auth/login', loginData, {
         headers: { 'Content-Type': 'application/json' },
       });
-      if (response.data.success) {
+      
         return response.data;
-      }
+     
 
     } catch (error) {
       if (error.response) {
@@ -153,6 +155,29 @@ export const verifyemail = createAsyncThunk(
   async (otp, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post('/api/auth/verify-account', { otp }, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      return response.data;
+
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue(error.response.data.message || error.response.data.error);
+      } else if (error.request) {
+        return rejectWithValue('Network error, please try again later.');
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+)
+
+
+export const sendResetOtp = createAsyncThunk(
+  'auth/sendResetOtp',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/api/auth/send-reset-otp', {}, {
         headers: { 'Content-Type': 'application/json' },
       });
 
